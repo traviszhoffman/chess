@@ -199,8 +199,32 @@ class RookMovesCalculator extends PieceMovesCalculator{
 }
 
 class KnightMovesCalculator extends PieceMovesCalculator{
+    static ArrayList<ChessMove> knightMoveChecker(ChessBoard board, ChessPosition myPosition, int rowChange, int colChange){
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = myPosition.row + rowChange;
+        int col = myPosition.col + colChange;
+        if(row <= 8 && row >=1 && col <= 8 && col >=1){
+            ChessPosition newPos = new ChessPosition(row, col);
+            ChessPiece pieceAtNewPos = board.getPiece(newPos);
+            if(pieceAtNewPos == null){
+                moves.add(new ChessMove(myPosition, newPos, null));
+            } else if(!pieceAtNewPos.getTeamColor().equals(board.getPiece(myPosition).getTeamColor())){
+                moves.add(new ChessMove(myPosition, newPos, null));
+            }
+        }
+        return moves;
+    }
+
     public static ArrayList<ChessMove> knightMoves(ChessBoard board, ChessPosition myPosition){
         ArrayList<ChessMove> knightMoves = new ArrayList<>();
+        knightMoves.addAll(knightMoveChecker(board,myPosition,2,1));
+        knightMoves.addAll(knightMoveChecker(board,myPosition,-2,1));
+        knightMoves.addAll(knightMoveChecker(board,myPosition,2,-1));
+        knightMoves.addAll(knightMoveChecker(board,myPosition,-2,-1));
+        knightMoves.addAll(knightMoveChecker(board,myPosition,1,2));
+        knightMoves.addAll(knightMoveChecker(board,myPosition,1,-2));
+        knightMoves.addAll(knightMoveChecker(board,myPosition,-1,-2));
+        knightMoves.addAll(knightMoveChecker(board,myPosition,-1, 2));
         return knightMoves;
     }
 }
@@ -233,8 +257,32 @@ class QueenMovesCalculator extends PieceMovesCalculator{
 }
 
 class KingMovesCalculator extends PieceMovesCalculator{
+    static ArrayList<ChessMove> kingMoveChecker(ChessBoard board, ChessPosition myPosition, int rowChange, int colChange){
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = myPosition.row + rowChange;
+        int col = myPosition.col + colChange;
+        if(row <= 8 && row >=1 && col <= 8 && col >=1){
+            ChessPosition newPos = new ChessPosition(row, col);
+            ChessPiece pieceAtNewPos = board.getPiece(newPos);
+            if(pieceAtNewPos == null){
+                moves.add(new ChessMove(myPosition, newPos, null));
+            } else if(!pieceAtNewPos.getTeamColor().equals(board.getPiece(myPosition).getTeamColor())){
+                moves.add(new ChessMove(myPosition, newPos, null));
+            }
+        }
+        return moves;
+    }
     public static ArrayList<ChessMove> kingMoves(ChessBoard board, ChessPosition myPosition){
         ArrayList<ChessMove> kingMoves = new ArrayList<>();
+        kingMoves.addAll(kingMoveChecker(board, myPosition, 1, 0));
+        kingMoves.addAll(kingMoveChecker(board, myPosition, -1, 0));
+        kingMoves.addAll(kingMoveChecker(board, myPosition, 0, -1));
+        kingMoves.addAll(kingMoveChecker( board, myPosition, 0, 1));
+        kingMoves.addAll(kingMoveChecker(board, myPosition, 1, 1));
+        kingMoves.addAll(kingMoveChecker(board, myPosition, -1, 1));
+        kingMoves.addAll(kingMoveChecker(board, myPosition, 1, -1));
+        kingMoves.addAll(kingMoveChecker(board, myPosition, -1, -1));
+
         return kingMoves;
     }
 }
