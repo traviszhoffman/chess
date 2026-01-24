@@ -288,8 +288,65 @@ class KingMovesCalculator extends PieceMovesCalculator{
 }
 
 class PawnMovesCalculator extends PieceMovesCalculator{
+    static ArrayList<ChessMove> pawnMoveDiagChecker(ChessBoard board, ChessPosition myPosition, int rowChange, int colChange, int promoRow) {
+        ArrayList<ChessMove> moves = new ArrayList<>();
+        int row = myPosition.row + rowChange;
+        int col = myPosition.col + colChange;
+        if (row <= 8 && row >= 1 && col <= 8 && col >= 1) {
+            ChessPosition newPos = new ChessPosition(row, col);
+            ChessPiece pieceAtNewPos = board.getPiece(newPos);
+            if (pieceAtNewPos != null && !pieceAtNewPos.getTeamColor().equals(board.getPiece(myPosition).getTeamColor())) {
+                if (row == promoRow) {
+                    moves.add(new ChessMove(myPosition, newPos, ChessPiece.PieceType.QUEEN));
+                    moves.add(new ChessMove(myPosition, newPos, ChessPiece.PieceType.ROOK));
+                    moves.add(new ChessMove(myPosition, newPos, ChessPiece.PieceType.BISHOP));
+                    moves.add(new ChessMove(myPosition, newPos, ChessPiece.PieceType.KNIGHT));
+                } else {
+                    moves.add(new ChessMove(myPosition, newPos, null));
+                }
+            }
+        }
+        return moves;
+    }
     public static ArrayList<ChessMove> pawnMoves(ChessBoard board, ChessPosition myPosition){
         ArrayList<ChessMove> pawnMoves = new ArrayList<>();
+        ChessGame.TeamColor color = board.getPiece(myPosition).pieceColor;
+        //default white
+        int direction =  1;
+        int startRow = 2;
+        int promoRow = 8;
+        int row = myPosition.row;
+        int col = myPosition.col;
+        if(color == ChessGame.TeamColor.BLACK){
+            direction = -1;
+            startRow = 7;
+            promoRow = 1;
+        }
+        int newRow =  row + direction;
+        if(newRow <= 8 && newRow >=1){
+            ChessPosition newPos = new ChessPosition(newRow,col);
+            ChessPiece pieceAtNewPos = board.getPiece(newPos);
+            if(pieceAtNewPos == null){
+                if(row == startRow){
+                    ChessPosition twoMovePos = new ChessPosition(row+(direction*2),col);
+                    ChessPiece twoMovePosPiece = board.getPiece(twoMovePos);
+                    if(twoMovePosPiece == null){
+                        pawnMoves.add(new ChessMove(myPosition,twoMovePos,null));
+                    }
+                }
+                if(newRow == promoRow){
+                    pawnMoves.add(new ChessMove(myPosition, newPos, ChessPiece.PieceType.QUEEN));
+                    pawnMoves.add(new ChessMove(myPosition, newPos, ChessPiece.PieceType.ROOK));
+                    pawnMoves.add(new ChessMove(myPosition, newPos, ChessPiece.PieceType.BISHOP));
+                    pawnMoves.add(new ChessMove(myPosition, newPos, ChessPiece.PieceType.KNIGHT));
+                } else {
+                    pawnMoves.add(new ChessMove(myPosition, newPos, null));
+                }
+            }
+        }
+        pawnMoves.addAll(pawnMoveDiagChecker(board,myPosition,direction,-1,promoRow));
+        pawnMoves.addAll(pawnMoveDiagChecker(board,myPosition,direction,1,promoRow));
+
         return pawnMoves;
     }
 }
