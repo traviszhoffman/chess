@@ -95,6 +95,108 @@ public class PieceMovesCalculator {
         }
         return rightMoves;
     }
+
+    static ArrayList<ChessMove> upDiagRight(ChessBoard board, ChessPosition myPosition) {
+        ArrayList<ChessMove> upDiagRightMoves = new ArrayList<>();
+        int col = myPosition.col;
+        int row = myPosition.row;
+        for(int step = 1;step < 8; step++){
+            //row = myPosition.row;
+            //row += step;
+            row += 1;
+            col += 1;
+            if(row <=8 && col <=8){
+                ChessPosition newPos = new ChessPosition(row, col);
+                ChessPiece pieceAtNewPos = board.getPiece(newPos);
+                if(pieceAtNewPos == null ) {
+                    upDiagRightMoves.add(new ChessMove(myPosition, newPos, null));
+                } else if(!pieceAtNewPos.getTeamColor().equals(board.getPiece(myPosition).getTeamColor())){
+                    upDiagRightMoves.add(new ChessMove(myPosition,newPos,null));
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+        return upDiagRightMoves;
+    }
+
+    static ArrayList<ChessMove> downDiagRight(ChessBoard board, ChessPosition myPosition) {
+        ArrayList<ChessMove> downDiagRightMoves = new ArrayList<>();
+        int col = myPosition.col;
+        int row = myPosition.row;
+        for(int step = 1;step < 8; step++){
+            //row = myPosition.row;
+            //row += step;
+            row -= 1;
+            col += 1;
+            if(row >=1 && col <=8){
+                ChessPosition newPos = new ChessPosition(row, col);
+                ChessPiece pieceAtNewPos = board.getPiece(newPos);
+                if(pieceAtNewPos == null ) {
+                    downDiagRightMoves.add(new ChessMove(myPosition, newPos, null));
+                } else if(!pieceAtNewPos.getTeamColor().equals(board.getPiece(myPosition).getTeamColor())){
+                    downDiagRightMoves.add(new ChessMove(myPosition,newPos,null));
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+        return downDiagRightMoves;
+    }
+
+    static ArrayList<ChessMove> upDiagLeft(ChessBoard board, ChessPosition myPosition) {
+        ArrayList<ChessMove> upDiagLeftMoves = new ArrayList<>();
+        int col = myPosition.col;
+        int row = myPosition.row;
+        for(int step = 1;step < 8; step++){
+            //row = myPosition.row;
+            //row += step;
+            row += 1;
+            col -= 1;
+            if(row <=8 && col >=1){
+                ChessPosition newPos = new ChessPosition(row, col);
+                ChessPiece pieceAtNewPos = board.getPiece(newPos);
+                if(pieceAtNewPos == null ) {
+                    upDiagLeftMoves.add(new ChessMove(myPosition, newPos, null));
+                } else if(!pieceAtNewPos.getTeamColor().equals(board.getPiece(myPosition).getTeamColor())){
+                    upDiagLeftMoves.add(new ChessMove(myPosition,newPos,null));
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+        return upDiagLeftMoves;
+    }
+
+    static ArrayList<ChessMove> downDiagLeft(ChessBoard board, ChessPosition myPosition) {
+        ArrayList<ChessMove> downDiagLeftMoves = new ArrayList<>();
+        int col = myPosition.col;
+        int row = myPosition.row;
+        for(int step = 1;step < 8; step++){
+            //row = myPosition.row;
+            //row += step;
+            row -= 1;
+            col -= 1;
+            if(row >=1 && col >=1){
+                ChessPosition newPos = new ChessPosition(row, col);
+                ChessPiece pieceAtNewPos = board.getPiece(newPos);
+                if(pieceAtNewPos == null ) {
+                    downDiagLeftMoves.add(new ChessMove(myPosition, newPos, null));
+                } else if(!pieceAtNewPos.getTeamColor().equals(board.getPiece(myPosition).getTeamColor())){
+                    downDiagLeftMoves.add(new ChessMove(myPosition,newPos,null));
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+        return downDiagLeftMoves;
+    }
+
+
 }
 
 class RookMovesCalculator extends PieceMovesCalculator{
@@ -127,7 +229,18 @@ class BishopMovesCalculator extends PieceMovesCalculator{
 
 class QueenMovesCalculator extends PieceMovesCalculator{
     public static ArrayList<ChessMove> queenMoves(ChessBoard board, ChessPosition myPosition){
-        ArrayList<ChessMove> queenMoves = new ArrayList<ChessMove>();
+        ArrayList<ChessMove> queenMoves = new ArrayList<>();
+        int col = myPosition.col;
+        int row = myPosition.row;
+        queenMoves.addAll(up(board, myPosition));
+        queenMoves.addAll(down(board,myPosition));
+        queenMoves.addAll(left(board,myPosition));
+        queenMoves.addAll(right(board,myPosition));
+
+        queenMoves.addAll(upDiagRight(board,myPosition));
+        queenMoves.addAll(downDiagRight(board,myPosition));
+        queenMoves.addAll(upDiagLeft(board,myPosition));
+        queenMoves.addAll(downDiagLeft(board,myPosition));
         return queenMoves;
     }
 }
