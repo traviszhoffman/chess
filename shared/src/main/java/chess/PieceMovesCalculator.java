@@ -223,6 +223,10 @@ class KnightMovesCalculator extends PieceMovesCalculator{
 class BishopMovesCalculator extends PieceMovesCalculator{
     public static ArrayList<ChessMove> bishopMoves(ChessBoard board, ChessPosition myPosition){
         ArrayList<ChessMove> bishopMoves = new ArrayList<>();
+        bishopMoves.addAll(upDiagRight(board,myPosition));
+        bishopMoves.addAll(downDiagRight(board,myPosition));
+        bishopMoves.addAll(upDiagLeft(board,myPosition));
+        bishopMoves.addAll(downDiagLeft(board,myPosition));
         return bishopMoves;
     }
 }
