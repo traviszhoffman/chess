@@ -8,8 +8,6 @@ public class PieceMovesCalculator {
         int col = myPosition.col;
         int row = myPosition.row;
         for(int step = 1;step < 8; step++){
-            //row = myPosition.row;
-            //row += step;
             row += 1;
             if(row <=8){
                 ChessPosition newPos = new ChessPosition(row, col);
@@ -32,7 +30,6 @@ public class PieceMovesCalculator {
         int col = myPosition.col;
         int row = myPosition.row;
         for(int step = 1;step < 8; step++){
-            //row -= step;
             row -= 1;
             if(row >=1){
                 ChessPosition newPos = new ChessPosition(row, col);
@@ -55,7 +52,6 @@ public class PieceMovesCalculator {
         int col = myPosition.col;
         int row = myPosition.row;
         for(int step = 1;step < 8; step++){
-            //col -= step;
             col -= 1;
             if(col >=1){
                 ChessPosition newPos = new ChessPosition(row, col);
@@ -78,7 +74,6 @@ public class PieceMovesCalculator {
         int col = myPosition.col;
         int row = myPosition.row;
         for(int step = 1;step < 8; step++){
-            // col += step;
             col += 1;
             if(col <=8){
                 ChessPosition newPos = new ChessPosition(row, col);
@@ -101,8 +96,6 @@ public class PieceMovesCalculator {
         int col = myPosition.col;
         int row = myPosition.row;
         for(int step = 1;step < 8; step++){
-            //row = myPosition.row;
-            //row += step;
             row += 1;
             col += 1;
             if(row <=8 && col <=8){
@@ -126,8 +119,6 @@ public class PieceMovesCalculator {
         int col = myPosition.col;
         int row = myPosition.row;
         for(int step = 1;step < 8; step++){
-            //row = myPosition.row;
-            //row += step;
             row -= 1;
             col += 1;
             if(row >=1 && col <=8){
@@ -151,8 +142,6 @@ public class PieceMovesCalculator {
         int col = myPosition.col;
         int row = myPosition.row;
         for(int step = 1;step < 8; step++){
-            //row = myPosition.row;
-            //row += step;
             row += 1;
             col -= 1;
             if(row <=8 && col >=1){
@@ -176,8 +165,6 @@ public class PieceMovesCalculator {
         int col = myPosition.col;
         int row = myPosition.row;
         for(int step = 1;step < 8; step++){
-            //row = myPosition.row;
-            //row += step;
             row -= 1;
             col -= 1;
             if(row >=1 && col >=1){
@@ -202,8 +189,6 @@ public class PieceMovesCalculator {
 class RookMovesCalculator extends PieceMovesCalculator{
     public static ArrayList<ChessMove> rookMoves(ChessBoard board, ChessPosition myPosition){
         ArrayList<ChessMove> rookMoves = new ArrayList<>();
-        int col = myPosition.col;
-        int row = myPosition.row;
         rookMoves.addAll(up(board, myPosition));
         rookMoves.addAll(down(board,myPosition));
         rookMoves.addAll(left(board,myPosition));
@@ -234,8 +219,6 @@ class BishopMovesCalculator extends PieceMovesCalculator{
 class QueenMovesCalculator extends PieceMovesCalculator{
     public static ArrayList<ChessMove> queenMoves(ChessBoard board, ChessPosition myPosition){
         ArrayList<ChessMove> queenMoves = new ArrayList<>();
-        int col = myPosition.col;
-        int row = myPosition.row;
         queenMoves.addAll(up(board, myPosition));
         queenMoves.addAll(down(board,myPosition));
         queenMoves.addAll(left(board,myPosition));
