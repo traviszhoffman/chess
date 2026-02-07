@@ -3,6 +3,7 @@ package chess;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
+
 /**
  * Represents a single chess piece
  * <p>
@@ -10,8 +11,8 @@ import java.util.Objects;
  * signature of the existing methods.
  */
 public class ChessPiece {
-        ChessGame.TeamColor pieceColor;
-        ChessPiece.PieceType type;
+    ChessGame.TeamColor pieceColor;
+    ChessPiece.PieceType type;
     public ChessPiece(ChessGame.TeamColor pieceColor, ChessPiece.PieceType type) {
         this.pieceColor = pieceColor;
         this.type = type;
@@ -33,14 +34,14 @@ public class ChessPiece {
      * @return Which team this chess piece belongs to
      */
     public ChessGame.TeamColor getTeamColor() {
-        return pieceColor;
+        return this.pieceColor;
     }
 
     /**
      * @return which type of chess piece this piece is
      */
     public PieceType getPieceType() {
-        return type;
+        return this.type;
     }
 
     /**
@@ -51,16 +52,17 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        //ArrayList<ChessMove> validMoves;
-        ChessPiece.PieceType piece =  board.getPiece(myPosition).getPieceType();
-        return switch (piece) {
-            case ROOK -> RookMovesCalculator.rookMoves(board, myPosition);
-            case KNIGHT -> KnightMovesCalculator.knightMoves(board, myPosition);
-            case BISHOP -> BishopMovesCalculator.bishopMoves(board, myPosition);
-            case QUEEN -> QueenMovesCalculator.queenMoves(board, myPosition);
-            case KING -> KingMovesCalculator.kingMoves(board, myPosition);
-            case PAWN -> PawnMovesCalculator.pawnMoves(board, myPosition);
-        };
+        ArrayList<ChessMove> validMoves = new ArrayList<>();
+        ChessPiece.PieceType piece = board.getPiece(myPosition).getPieceType();
+        switch(piece) {
+            case ROOK -> RookMovesCalculator.rookMoves(board,myPosition,validMoves);
+            case KNIGHT -> KnightMovesCalculator.knightMoves(board,myPosition,validMoves);
+            case BISHOP -> BishopMovesCalculator.bishopMoves(board,myPosition,validMoves);
+            case QUEEN -> QueenMovesCalculator.queenMoves(board,myPosition,validMoves);
+            case KING -> KingMovesCalculator.kingMoves(board,myPosition,validMoves);
+            case PAWN -> PawnMovesCalculator.pawnMoves(board,myPosition,validMoves);
+        }
+        return validMoves;
     }
 
     @Override
