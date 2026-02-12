@@ -73,4 +73,10 @@ public class ChessBoard {
         return Arrays.deepHashCode(chessBoard);
     }
 
+    @Override
+    public String toString() {
+        return "ChessBoard{" +
+                "chessBoard=" + Arrays.toString(chessBoard) +
+                '}';
+    }
 }
